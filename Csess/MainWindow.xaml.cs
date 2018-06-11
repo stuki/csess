@@ -28,11 +28,10 @@ namespace Csess
             
             Board board = new Board();
 
-            foreach (Square square in board.Field())
+            foreach (Square square in board.Field)
             {
                 chessBoard.Children.Add(square.CreateRect()); 
             }
         }
-        
     }
 }

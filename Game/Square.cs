@@ -14,16 +14,16 @@ namespace Game
     public class Square
     {
         private static int _nextIndex = 0;
-        private static Square _activated;
+        private static Piece _activatedPiece = null;
         public int index;
         public Piece Piece;
         public Rectangle Rect;
         private SolidColorBrush _color;
         private readonly Dictionary<string, SolidColorBrush> _colorList =
             new Dictionary<string, SolidColorBrush> {
-                { "black", new SolidColorBrush(Color.FromRgb(100, 100, 100)) },
-                { "white", new SolidColorBrush(Color.FromRgb(200, 200, 200)) },
-                { "hilight", new SolidColorBrush(Color.FromRgb(150, 1, 1)) }
+                { "black", new SolidColorBrush(Color.FromRgb(118, 150, 86)) },
+                { "white", new SolidColorBrush(Color.FromRgb(238, 238, 210)) },
+                { "hilight", new SolidColorBrush(Color.FromRgb(186, 202, 68)) }
             };
 
         public Square(Piece piece = null)
@@ -51,27 +51,26 @@ namespace Game
 
         public Rectangle CreateRect()
         {
-            int lol = index / 8;
             Rect.Fill = _color;
             Rect.DataContext = this;
             Rect.MouseDown += new MouseButtonEventHandler(MouseDownHandler);
-            Rect.MouseUp += new MouseButtonEventHandler(MouseUpHandler);
             return Rect;
         }
 
         private void MouseDownHandler(object sender, MouseButtonEventArgs e)
         {
-            UIElement element = (UIElement)sender;
-            Rect.Fill = _colorList["hilight"];
-            _activated = this;
-            element.CaptureMouse();
+            if (Rect.Fill.Equals(_color) && _activatedPiece == null)
+            {
+                Rect.Fill = _colorList["hilight"];
+                _activatedPiece = Piece;
+                Piece = null;
+            }
+            else
+            {
+                Rect.Fill = _color;
+                Piece = _activatedPiece;
+                _activatedPiece = null;
+            }
         }
-        private void MouseUpHandler(object sender, MouseButtonEventArgs e)
-        {
-            UIElement element = (UIElement)sender;
-            Rect.Fill = _color;
-            _activated = null;
-            element.ReleaseMouseCapture();
-        }   
     }
 }
