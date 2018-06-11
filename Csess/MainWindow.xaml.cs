@@ -25,6 +25,7 @@ namespace Csess
         public MainWindow()
         {
             InitializeComponent();
+            
             Board board = new Board();
 
             foreach (Square square in board.Field())
