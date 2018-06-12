@@ -9,8 +9,23 @@ namespace Game
 {
     public class Board
     {
+        public static int[] AreaOfMovement =
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+              0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+              0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+              0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+              0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+              0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+              0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+              0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+              0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+              0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+              0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+              0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
         private List<Square> _field = new List<Square>(new Square[64]);
         private List<List<Square>> _history;
+
 
         public List<List<Square>> History { get => _history; set => _history = value; }
 

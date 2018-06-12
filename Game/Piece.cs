@@ -8,9 +8,7 @@ namespace Game
 {
     public class Piece
     {
-        private readonly string _name;
-        private readonly int _value;
-        public readonly bool IsWhite;
+        public bool IsWhite;
         public bool _isActive { get; set; }
         public bool _isChecked { get; set; }
 
@@ -24,10 +22,8 @@ namespace Game
                 {"king", 99999},
             };
         
-        public Piece(string name, bool isWhite)
+        public Piece(bool isWhite)
         {
-            _name = name;
-            _value = piece[name];
             IsWhite = isWhite;
             _isActive = true;
             _isChecked = false;

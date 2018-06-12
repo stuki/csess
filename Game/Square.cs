@@ -50,7 +50,7 @@ namespace Game
         }
 
         public Rectangle CreateRect()
-        {
+        { 
             Rect.Fill = _color;
             Rect.DataContext = this;
             Rect.MouseDown += new MouseButtonEventHandler(MouseDownHandler);
@@ -68,9 +68,12 @@ namespace Game
             else
             {
                 Rect.Fill = _color;
-                Piece = _activatedPiece;
-                _activatedPiece = null;
+                if (Move.Validation(_activatedPiece, this))
+                {
+                    Piece = _activatedPiece;
+                    _activatedPiece = null;
+                }
             }
-        }
+        } 
     }
 }
