@@ -12,7 +12,7 @@ namespace Game
         {
             int[] board = Board.To120(start);
 
-            return false;
+            return true;
         }
     }
 }

@@ -13,6 +13,14 @@ namespace Game
         public Pawn(bool isWhite) : base(isWhite)
         {
             IsWhite = isWhite;
+            if (isWhite)
+            {
+                Unicode = pieceUnicodeWhite["pawn"];
+            }
+            else
+            {
+                Unicode = pieceUnicodeBlack["pawn"];
+            }
         }
     }
     public class Knight : Piece
@@ -22,6 +30,14 @@ namespace Game
         public Knight(bool isWhite) : base(isWhite)
         {
             IsWhite = isWhite;
+            if (isWhite)
+            {
+                Unicode = pieceUnicodeWhite["knight"];
+            }
+            else
+            {
+                Unicode = pieceUnicodeBlack["knight"];
+            }
         }
     }
     public class Bishop : Piece
@@ -31,6 +47,14 @@ namespace Game
         public Bishop(bool isWhite) : base(isWhite)
         {
             IsWhite = isWhite;
+            if (isWhite)
+            {
+                Unicode = pieceUnicodeWhite["bishop"];
+            }
+            else
+            {
+                Unicode = pieceUnicodeBlack["bishop"];
+            }
         }
     }
     public class Rook : Piece
@@ -40,6 +64,14 @@ namespace Game
         public Rook(bool isWhite) : base(isWhite)
         {
             IsWhite = isWhite;
+            if (isWhite)
+            {
+                Unicode = pieceUnicodeWhite["rook"];
+            }
+            else
+            {
+                Unicode = pieceUnicodeBlack["rook"];
+            }
         }
 
 
@@ -51,6 +83,14 @@ namespace Game
         public Queen(bool isWhite) : base(isWhite)
         {
             IsWhite = isWhite;
+            if (isWhite)
+            {
+                Unicode = pieceUnicodeWhite["queen"];
+            }
+            else
+            {
+                Unicode = pieceUnicodeBlack["queen"];
+            }
         }
     }
     public class King : Piece
@@ -60,6 +100,14 @@ namespace Game
         public King(bool isWhite) : base(isWhite)
         {
             IsWhite = isWhite;
+            if (isWhite)
+            {
+                Unicode = pieceUnicodeWhite["king"];
+            }
+            else
+            {
+                Unicode = pieceUnicodeBlack["king"];
+            }
         }
     }
 }

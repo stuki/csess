@@ -20,7 +20,7 @@ namespace Game
         private static Square _activatedSquare;
         public int index;
         public Piece Piece;
-        public Rectangle Rect;
+        public TextBlock Rect;
         private SolidColorBrush _color;
         private readonly Dictionary<string, SolidColorBrush> _colorList =
             new Dictionary<string, SolidColorBrush> {
@@ -28,11 +28,13 @@ namespace Game
                 { "white", new SolidColorBrush(Color.FromRgb(238, 238, 210)) },
                 { "hilight", new SolidColorBrush(Color.FromRgb(186, 202, 68)) }
             };
-
         public Square(Piece piece = null)
         {
             Piece = piece;
-            Rect = new Rectangle();
+            Rect = new TextBlock();
+            Rect.FontSize = 64;
+            Rect.TextAlignment = TextAlignment.Center;
+            //Rect.VerticalAlignment = VerticalAlignment.Center;
             index = _nextIndex++;
             _color = _colorList["white"];
 
@@ -52,31 +54,38 @@ namespace Game
             }
         }
 
-        public Rectangle CreateRect()
+        public TextBlock CreateRect()
         { 
-            Rect.Fill = _color;
+            Rect.Background = _color;
+            if (Piece != null)
+            {
+                Rect.Text = Piece.Unicode;
+            }
             Rect.DataContext = this;
             Rect.MouseDown += new MouseButtonEventHandler(MouseDownHandler);
+            Rect.MouseEnter += new MouseEventHandler(MouseHoverHandler);
+            Rect.MouseLeave += new MouseEventHandler(MouseLeaveHandler);
             return Rect;
         }
-
         private void MouseDownHandler(object sender, MouseButtonEventArgs e)
         {
-            if (Rect.Fill.Equals(_color) && _activatedSquare == null)
+            if (_activatedSquare == null && Piece != null)
             {
-                Rect.Fill = _colorList["hilight"];
+                Rect.Opacity = 0.8;
                 _activatedPiece = Piece;
                 _activatedSquare = this;
                 Piece = null;
             }
-            else
+            else if (_activatedSquare != null)
             {
-                Rect.Fill = _color;
                 if (Move.Validation(_activatedPiece, _activatedSquare, this))
                 {
+                    _activatedSquare.Rect.Opacity = 1;
+                    _activatedSquare.Rect.Text = null;
                     Piece = _activatedPiece;
+                    Rect.Text = Piece.Unicode;
                     _activatedPiece = null;
-                    _activatedSquare.Rect.Fill = _activatedSquare._color;
+                    _activatedSquare = null;
                 }
                 else
                 {
@@ -85,13 +94,30 @@ namespace Game
             }
         }
 
+        private void MouseHoverHandler(object sender, MouseEventArgs e)
+        {
+            if (_activatedSquare != this)
+            {
+                Rect.Opacity = 0.95;
+            }
+        }
+
+        private void MouseLeaveHandler(object sender, MouseEventArgs e)
+        {
+            if (_activatedSquare != this)
+            {
+                Rect.Opacity = 1;
+            }
+        }
+
+
         private void Flash(Square square)
         {
-            square.Rect.Fill = square._color;
-                ColorAnimation animation = new ColorAnimation(
+            // TODO: MAKE IT WORK GOD DAMMIT
+            ColorAnimation animation = new ColorAnimation(
                 Colors.Red,
                 Colors.Blue,
-                new Duration(TimeSpan.FromMilliseconds(5000))
+                new Duration(TimeSpan.FromSeconds(5))
             );
             square.Rect.BeginAnimation(SolidColorBrush.ColorProperty, animation);
         }
