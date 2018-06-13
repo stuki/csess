@@ -10,7 +10,7 @@ namespace Game
     {
         public bool IsWhite;
         public bool _isActive { get; set; }
-        public bool _isChecked { get; set; }
+        public bool _isAttacked { get; set; }
 
         private static Dictionary<string, int> piece = new Dictionary<string, int>
             {
@@ -26,7 +26,7 @@ namespace Game
         {
             IsWhite = isWhite;
             _isActive = true;
-            _isChecked = false;
+            _isAttacked = false;
         }
     }
 }

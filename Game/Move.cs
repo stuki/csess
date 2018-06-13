@@ -8,9 +8,11 @@ namespace Game
 {
     public class Move
     {
-        public static bool Validation(Piece piece, Square square)
+        public static bool Validation(Piece piece, Square start, Square end)
         {
-            return true;
+            int[] board = Board.To120(start);
+
+            return false;
         }
     }
 }

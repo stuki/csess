@@ -41,6 +41,8 @@ namespace Game
         {
             IsWhite = isWhite;
         }
+
+
     }
     public class Queen : Piece
     {

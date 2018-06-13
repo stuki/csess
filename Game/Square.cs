@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Timers;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace Game
@@ -15,6 +17,7 @@ namespace Game
     {
         private static int _nextIndex = 0;
         private static Piece _activatedPiece = null;
+        private static Square _activatedSquare;
         public int index;
         public Piece Piece;
         public Rectangle Rect;
@@ -59,21 +62,39 @@ namespace Game
 
         private void MouseDownHandler(object sender, MouseButtonEventArgs e)
         {
-            if (Rect.Fill.Equals(_color) && _activatedPiece == null)
+            if (Rect.Fill.Equals(_color) && _activatedSquare == null)
             {
                 Rect.Fill = _colorList["hilight"];
                 _activatedPiece = Piece;
+                _activatedSquare = this;
                 Piece = null;
             }
             else
             {
                 Rect.Fill = _color;
-                if (Move.Validation(_activatedPiece, this))
+                if (Move.Validation(_activatedPiece, _activatedSquare, this))
                 {
                     Piece = _activatedPiece;
                     _activatedPiece = null;
+                    _activatedSquare.Rect.Fill = _activatedSquare._color;
+                }
+                else
+                {
+                    Flash(_activatedSquare);
                 }
             }
-        } 
+        }
+
+        private void Flash(Square square)
+        {
+            square.Rect.Fill = square._color;
+                ColorAnimation animation = new ColorAnimation(
+                Colors.Red,
+                Colors.Blue,
+                new Duration(TimeSpan.FromMilliseconds(5000))
+            );
+            square.Rect.BeginAnimation(SolidColorBrush.ColorProperty, animation);
+        }
+
     }
 }
