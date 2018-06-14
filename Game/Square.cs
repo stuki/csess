@@ -113,7 +113,10 @@ namespace Game
 
         private void Flash(Square square)
         {
-            // TODO: MAKE IT WORK GOD DAMMIT
+            // TODO: MAKE IT WORK GOD DAMMIT id:0
+            // Oscar Storbacka
+            // ostorbacka@gmail.com
+            // https://github.com/stuki/csess/issues/1
             ColorAnimation animation = new ColorAnimation(
                 Colors.Red,
                 Colors.Blue,
